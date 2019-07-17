@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::get('/profile', 'Profile\ProfileController@index')->name('profile');
+
+Route::get('/admin', function(){
+  return 'you are admin';
+})->middleware(['auth', 'auth.admin']);
