@@ -12,15 +12,23 @@
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+  Route::get('/dashboard', 'DashboardController@index');
 
-Route::get('/profile', 'Profile\ProfileController@index')->name('profile');
+  Route::get('/profile', 'Profile\ProfileController@index');
 
-Route::get('/admin', function(){
-  return 'you are admin';
-})->middleware(['auth', 'auth.admin']);
+  Route::resource('cement-brands', 'CementBrandsController');
+
+  Route::resource('cement', 'CementController');
+});
+
+Route::middleware(['auth', 'auth.admin'])->group(function () {
+  Route::get('/admin', function(){
+    return 'you are admin';
+  });
+});
