@@ -19,8 +19,9 @@ class CreateCementsTable extends Migration
             $table->integer('rate');
             $table->integer('price');
             $table->string('brand');
-            $table->string('due_no');
+            $table->string('due_no')->nullable();
             $table->integer('customer_id');
+            $table->string('customer_name');
             $table->timestamps();
         });
     }

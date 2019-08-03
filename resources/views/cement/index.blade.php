@@ -5,9 +5,30 @@
     <h1>Cement portion</h1>
 
     @if(count($records) > 0)
-      @foreach ($records as $record) 
-
-      @endforeach
+    <table class="table table-striped">
+      <thead>
+          <tr>
+            <td>মোট বস্তা</td>
+            <td>দর</td>
+            <td>মূল্য</td>
+            <td>কাস্টমারের নাম</td>
+            <td>ব্র্যান্ড</td>
+            <td>ডিও নং</td>
+          </tr>
+      </thead>
+      <tbody>
+          @foreach($records as $record)
+          <tr>
+              <td>{{$record->total_amount}}</td>
+              <td>{{$record->rate}}</td>
+              <td>{{$record->price}}</td>
+              <td>{{$record->customer_name}}</td>
+              <td>{{$brands[$record->brand]}}</td>
+              <td>{{$record->due_no}}</td>
+          </tr>
+          @endforeach
+      </tbody>
+    </table>
     @else
       <p>No records found</p>
     @endif

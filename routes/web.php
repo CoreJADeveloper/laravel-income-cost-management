@@ -25,6 +25,11 @@ Route::middleware(['auth'])->group(function () {
   Route::resource('cement-brands', 'CementBrandsController');
 
   Route::resource('cement', 'CementController');
+
+  Route::post('/get-customer-template', function(){
+    $html = view('customer', compact('user'))->render();
+    return response()->json(['success'=> $html]);
+  });
 });
 
 Route::middleware(['auth', 'auth.admin'])->group(function () {

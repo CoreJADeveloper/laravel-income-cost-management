@@ -13,6 +13,8 @@ class Cement extends Model
    */
   protected $table = 'cements';
 
+  protected $fillable = ['total_amount', 'rate', 'price', 'customer_name', 'customer_id', 'brand', 'due_no'];
+
   /**
    * The primary key associated with the table.
    *

@@ -17,10 +17,11 @@ class CreateCustomersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('mobile');
-            $table->string('national_id');
-            $table->string('address');
-            $table->string('bank_name');
-            $table->string('bank_account_number');
+            $table->string('national_id')->nullable();
+            $table->string('address')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_account_number')->nullable();
+            $table->integer('due_money');
             $table->timestamps();
         });
     }
