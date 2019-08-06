@@ -13,7 +13,7 @@ class Customer extends Model
    */
   protected $table = 'customers';
 
-  protected $fillable = ['name', 'mobile', 'address', 'national_id', 'bank_name', 'bank_account_number'];
+  protected $fillable = ['name', 'mobile', 'address', 'national_id', 'bank_name', 'bank_account_number', 'due_money', 'source'];
 
   /**
    * The primary key associated with the table.

@@ -21,7 +21,10 @@
   <label for="address">কাস্টমারের ঠিকানা</label>
   <textarea id="address"
   name="address"
-  class="form-control"></textarea>
+  class="@error('address') is-invalid @enderror form-control"></textarea>
+  @error('address')
+      <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
 </div>
 
 <div class="form-group">

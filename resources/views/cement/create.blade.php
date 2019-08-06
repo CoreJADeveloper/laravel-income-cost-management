@@ -37,7 +37,7 @@
           </div>
 
           <div class="form-group">
-            <label for="price">মূল্য</label>
+            <label for="price">জমা</label>
             <input id="price" type="number" name="price" class="@error('price') is-invalid @enderror form-control">
             @error('price')
                 <div class="alert alert-danger">{{ $message }}</div>

@@ -22,6 +22,7 @@ class CreateCustomersTable extends Migration
             $table->string('bank_name')->nullable();
             $table->string('bank_account_number')->nullable();
             $table->integer('due_money');
+            $table->string('source');
             $table->timestamps();
         });
     }

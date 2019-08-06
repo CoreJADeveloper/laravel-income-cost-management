@@ -10,7 +10,7 @@
           <tr>
             <td>মোট বস্তা</td>
             <td>দর</td>
-            <td>মূল্য</td>
+            <td>জমা</td>
             <td>কাস্টমারের নাম</td>
             <td>ব্র্যান্ড</td>
             <td>ডিও নং</td>
@@ -29,6 +29,9 @@
           @endforeach
       </tbody>
     </table>
+    <div class="text-xs-center">
+      {{ $records->links() }}
+    </div>
     @else
       <p>No records found</p>
     @endif

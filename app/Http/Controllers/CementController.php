@@ -23,7 +23,7 @@ class CementController extends Controller
         $cementBrandRecords = CementBrand::where('active', 1)->get();
         $brands = $this->process_cement_brands($cementBrandRecords);
 
-        $cementRecords = Cement::all();
+        $cementRecords = Cement::paginate(10);
         return view('cement.index')->with(['records' => $cementRecords, 'brands' => $brands]);
     }
 
@@ -90,10 +90,12 @@ class CementController extends Controller
         $data['address'] = $request->get('address');
         $data['bank_name'] = $request->get('bank_name');
         $data['bank_account_no'] = $request->get('bank_account_no');
+        $data['source'] = 'cement';
 
-        $validatedData = $request->validate([
-            'mobile' => 'required'
-        ]);
+        // $validatedData = $request->validate([
+        //     'mobile' => 'required',
+        //     'address' => 'required'
+        // ]);
 
         $customer_id = $this->save_customer($data);
       }
@@ -146,7 +148,8 @@ class CementController extends Controller
           'address' => $data['address'],
           'bank_name' => $data['bank_name'],
           'bank_account_number' => $data['bank_account_no'],
-          'due_money' => $data['due_money']
+          'due_money' => $data['due_money'],
+          'source' => $data['source']
       ]);
 
       $customer->save();
