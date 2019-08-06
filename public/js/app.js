@@ -37001,9 +37001,10 @@ if (token) {
 /***/ (function(module, exports) {
 
 jQuery('document').ready(function ($) {
-  var template_html = '';
+  // Cement Record
+  var cement_template_html = '';
 
-  var check_payment_type_due = function check_payment_type_due() {
+  var check_cement_payment_type_due = function check_cement_payment_type_due() {
     var amount = $('#cement-create-record #total_amount').val();
     var rate = $('#cement-create-record #rate').val();
     var price = $('#cement-create-record #price').val();
@@ -37019,7 +37020,7 @@ jQuery('document').ready(function ($) {
     }
   };
 
-  var get_employee_template = function get_employee_template() {
+  var get_cement_employee_template = function get_cement_employee_template() {
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -37029,41 +37030,106 @@ jQuery('document').ready(function ($) {
       type: 'POST',
       url: '/get-customer-template',
       success: function success(data) {
-        template_html = data.success;
-        $('#cement-create-record #customer-information').append(template_html);
+        cement_template_html = data.success;
+        $('#cement-create-record #customer-information').append(cement_template_html);
       }
     });
   };
 
   $('#cement-create-record #total_amount').on('input', function () {
-    var payment_type_due = check_payment_type_due();
+    var payment_type_due = check_cement_payment_type_due();
 
     if (!payment_type_due) {
-      template_html = '';
+      cement_template_html = '';
       $('#cement-create-record #customer-information').empty();
     }
 
-    if (payment_type_due && template_html == '') get_employee_template();
+    if (payment_type_due && cement_template_html == '') get_cement_employee_template();
   });
   $('#cement-create-record #rate').on('input', function () {
-    var payment_type_due = check_payment_type_due();
+    var payment_type_due = check_cement_payment_type_due();
 
     if (!payment_type_due) {
-      template_html = '';
+      cement_template_html = '';
       $('#cement-create-record #customer-information').empty();
     }
 
-    if (payment_type_due && template_html == '') get_employee_template();
+    if (payment_type_due && cement_template_html == '') get_cement_employee_template();
   });
   $('#cement-create-record #price').on('input', function () {
-    var payment_type_due = check_payment_type_due();
+    var payment_type_due = check_cement_payment_type_due();
 
     if (!payment_type_due) {
-      template_html = '';
+      cement_template_html = '';
       $('#cement-create-record #customer-information').empty();
     }
 
-    if (payment_type_due && template_html == '') get_employee_template();
+    if (payment_type_due && cement_template_html == '') get_cement_employee_template();
+  }); // Rod Record
+
+  var rod_template_html = '';
+
+  var check_rod_payment_type_due = function check_rod_payment_type_due() {
+    var amount = $('#rod-create-record #total_amount').val();
+    var rate = $('#rod-create-record #rate').val();
+    var price = $('#rod-create-record #price').val();
+
+    if (amount && rate && price) {
+      var amount = parseInt(amount);
+      var rate = parseInt(rate);
+      var price = parseInt(price);
+      var total_price = amount * rate;
+      if (total_price <= price) return false;else return true;
+    } else {
+      return false;
+    }
+  };
+
+  var get_rod_employee_template = function get_rod_employee_template() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: 'POST',
+      url: '/get-customer-template',
+      success: function success(data) {
+        rod_template_html = data.success;
+        $('#rod-create-record #customer-information').append(rod_template_html);
+      }
+    });
+  };
+
+  $('#rod-create-record #total_amount').on('input', function () {
+    var payment_type_due = check_rod_payment_type_due();
+
+    if (!payment_type_due) {
+      rod_template_html = '';
+      $('#rod-create-record #customer-information').empty();
+    }
+
+    if (payment_type_due && rod_template_html == '') get_rod_employee_template();
+  });
+  $('#rod-create-record #rate').on('input', function () {
+    var payment_type_due = check_rod_payment_type_due();
+
+    if (!payment_type_due) {
+      rod_template_html = '';
+      $('#rod-create-record #customer-information').empty();
+    }
+
+    if (payment_type_due && rod_template_html == '') get_rod_employee_template();
+  });
+  $('#rod-create-record #price').on('input', function () {
+    var payment_type_due = check_rod_payment_type_due();
+
+    if (!payment_type_due) {
+      rod_template_html = '';
+      $('#rod-create-record #customer-information').empty();
+    }
+
+    if (payment_type_due && rod_template_html == '') get_rod_employee_template();
   });
 });
 

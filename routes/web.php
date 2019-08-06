@@ -30,6 +30,10 @@ Route::middleware(['auth'])->group(function () {
 
   Route::resource('cement', 'CementController');
 
+  Route::resource('rod', 'RodsController');
+
+  Route::resource('rod-brands', 'RodBrandsController');
+
   Route::post('/get-customer-template', function(){
     $html = view('customer', compact('user'))->render();
     return response()->json(['success'=> $html]);

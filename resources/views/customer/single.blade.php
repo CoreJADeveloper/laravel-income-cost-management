@@ -14,9 +14,15 @@
             <td>মোবাইল নাম্বার</td>
             <td>{{$record->mobile}}</td>
         </tr>
-        @if($product->total_amount)
+        @if($product->total_amount && $record->source == 'cement')
         <tr>
             <td>মোট বস্তা</td>
+            <td>{{$product->total_amount}}</td>
+        </tr>
+        @endif
+        @if($product->total_amount && $record->source == 'rod')
+        <tr>
+            <td>কেজি</td>
             <td>{{$product->total_amount}}</td>
         </tr>
         @endif
