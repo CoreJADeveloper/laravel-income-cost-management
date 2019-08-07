@@ -6,18 +6,16 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">রড বিক্রয়ের হিসাব</h5>
-
-            <a href="{{ url('rod') }}" class="btn btn-primary">ক্লিক করুন</a>
+            <h5 class="card-title">সিমেন্ট বিক্রয়ের হিসাব</h5>
+            <a href="{{ url('cement') }}" class="btn btn-primary">ক্লিক করুন</a>
           </div>
         </div>
       </div>
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">সিমেন্ট বিক্রয়ের হিসাব</h5>
-
-            <a href="{{ url('cement') }}" class="btn btn-primary">ক্লিক করুন</a>
+            <h5 class="card-title">রড বিক্রয়ের হিসাব</h5>
+            <a href="{{ url('rod') }}" class="btn btn-primary">ক্লিক করুন</a>
           </div>
         </div>
       </div>
@@ -27,7 +25,6 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">ব্যাংকে জমার বিবরণ</h5>
-
             <a href="#" class="btn btn-primary">ক্লিক করুন</a>
           </div>
         </div>
@@ -36,23 +33,23 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">দোকানের খরচ</h5>
-
-            <a href="#" class="btn btn-primary">ক্লিক করুন</a>
+            <a href="{{ url('daily-costs') }}" class="btn btn-primary">ক্লিক করুন</a>
           </div>
         </div>
       </div>
     </div>
+    @if(Auth::user()->hasAnyRole('admin'))
     <div class="row justify-content-center">
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">কর্মচারিদের বেতন</h5>
-
-            <a href="#" class="btn btn-primary">ক্লিক করুন</a>
+            <a href="{{ url('salaries') }}" class="btn btn-primary">ক্লিক করুন</a>
           </div>
         </div>
       </div>
       <div class="col-sm-6"></div>
     </div>
+    @endif
 </div>
 @endsection

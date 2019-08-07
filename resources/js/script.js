@@ -156,4 +156,20 @@ jQuery('document').ready(function($){
         get_rod_employee_template();
   });
 
+  // Report
+
+  $('#report .startDate').datepicker({
+      format: 'dd/mm/yyyy',
+      setDate: 'today',
+      endDate:'today',
+      autoclose: true
+  });
+
+  $('#report .endDate').datepicker({
+      format: 'dd/mm/yyyy',
+      setDate: 'today',
+      endDate:'today',
+      autoclose: true
+  });
+
 })

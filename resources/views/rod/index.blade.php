@@ -2,8 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Cement portion</h1>
-
+  
     @if(count($records) > 0)
     <table class="table table-striped">
       <thead>

@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
   Route::resource('daily-costs', 'DailyCostsController');
 
   Route::post('/get-customer-template', function(){
-    $html = view('customer', compact('user'))->render();
+    $html = view('templates.customer', compact('user'))->render();
     return response()->json(['success'=> $html]);
   });
 });

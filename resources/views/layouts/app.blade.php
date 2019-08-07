@@ -49,6 +49,10 @@
                                 </li>
                             @endif -->
                         @else
+                        <li class="nav-item">
+                          <a class="btn btn-primary" data-toggle="modal" data-target="#reportModal">
+                              রিপোর্ট
+                          </a>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
@@ -76,6 +80,12 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+
+        @auth
+        @extends('templates.report-modal')
+        @endauth
+
     </div>
 </body>
 </html>
