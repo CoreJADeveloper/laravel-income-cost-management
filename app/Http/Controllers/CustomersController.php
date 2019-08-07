@@ -10,7 +10,7 @@ use App\Rod;
 class CustomersController extends Controller
 {
     public function index(){
-      $customerRecords = Customer::paginate(10);
+      $customerRecords = Customer::orderBy('created_at','desc')->paginate(10);
       return view('customer.index')->with(['records' => $customerRecords]);
     }
 

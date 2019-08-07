@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
 
   Route::resource('rod-brands', 'RodBrandsController');
 
+  Route::resource('daily-costs', 'DailyCostsController');
+
   Route::post('/get-customer-template', function(){
     $html = view('customer', compact('user'))->render();
     return response()->json(['success'=> $html]);
@@ -55,4 +57,6 @@ Route::middleware(['auth', 'auth.admin'])->group(function () {
   Route::get('/admin', function(){
     return 'you are admin';
   });
+
+  Route::resource('salaries', 'SalariesController');
 });

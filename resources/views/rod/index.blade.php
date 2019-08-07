@@ -15,6 +15,7 @@
             <td>কাস্টমারের নাম</td>
             <td>ব্র্যান্ড</td>
             <td>ডিও নং</td>
+            <td>তারিখ</td>
           </tr>
       </thead>
       <tbody>
@@ -27,6 +28,7 @@
             <td>{{$record->customer_name}}</td>
             <td>{{$brands[$record->brand]}}</td>
             <td>{{$record->due_no}}</td>
+            <td>{{$record->created_at->setTimezone(new DateTimeZone('GMT+6'))->format('d F Y, h:i A')}}</td>
           </tr>
           @endforeach
       </tbody>

@@ -19,7 +19,7 @@ class RodsController extends Controller
       $rodBrandRecords = RodBrand::where('active', 1)->get();
       $brands = $this->process_rod_brands($rodBrandRecords);
 
-      $rodRecords = Rod::paginate(10);
+      $rodRecords = Rod::orderBy('created_at','desc')->paginate(10);
       return view('rod.index')->with(['records' => $rodRecords, 'brands' => $brands]);
     }
 

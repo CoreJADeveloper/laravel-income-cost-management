@@ -23,7 +23,7 @@ class CementController extends Controller
         $cementBrandRecords = CementBrand::where('active', 1)->get();
         $brands = $this->process_cement_brands($cementBrandRecords);
 
-        $cementRecords = Cement::paginate(10);
+        $cementRecords = Cement::orderBy('created_at','desc')->paginate(10);
         return view('cement.index')->with(['records' => $cementRecords, 'brands' => $brands]);
     }
 

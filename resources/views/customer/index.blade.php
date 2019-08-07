@@ -16,6 +16,7 @@
             <td>ব্যাংক অ্যাকাউন্ট নাম্বার</td>
             <td>বাকি টাকা</td>
             <td>ক্রয়</td>
+            <td>তারিখ</td>
           </tr>
       </thead>
       <tbody>
@@ -29,6 +30,7 @@
               <td>{{$record->bank_account_number}}</td>
               <td>{{$record->due_money}}</td>
               <td>{{ucfirst(trans($record->source))}}</td>
+              <td>{{$record->created_at->setTimezone(new DateTimeZone('GMT+6'))->format('d F Y, h:i A')}}</td>
           </tr>
           @endforeach
       </tbody>
