@@ -47,6 +47,10 @@ Route::middleware(['auth'])->group(function () {
 
   Route::resource('daily-costs', 'DailyCostsController');
 
+  Route::resource('bank-savings', 'BankSavingsController');
+
+  Route::resource('due-collections', 'DueCollectionsController');
+
   Route::post('/get-customer-template', function(){
     $html = view('templates.customer', compact('user'))->render();
     return response()->json(['success'=> $html]);
