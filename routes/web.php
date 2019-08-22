@@ -37,6 +37,10 @@ Route::middleware(['auth'])->group(function () {
 
   Route::get('/customer/{id}', 'CustomersController@customer');
 
+  Route::get('/report', 'ReportsController@index');
+
+  Route::post('/report', 'ReportsController@view');
+
   Route::resource('cement-brands', 'CementBrandsController');
 
   Route::resource('cement', 'CementController');

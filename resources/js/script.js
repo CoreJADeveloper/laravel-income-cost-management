@@ -159,14 +159,14 @@ jQuery('document').ready(function($){
   // Report
 
   $('#report .startDate').datepicker({
-      format: 'dd/mm/yyyy',
+      format: 'yyyy/mm/dd',
       setDate: 'today',
       endDate:'today',
       autoclose: true
   });
 
   $('#report .endDate').datepicker({
-      format: 'dd/mm/yyyy',
+      format: 'yyyy/mm/dd',
       setDate: 'today',
       endDate:'today',
       autoclose: true
