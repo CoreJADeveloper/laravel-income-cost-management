@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use App\Rod;
+use App\RodBrand;
 use App\Cement;
+use App\CementBrand;
 use App\Customer;
+use App\BankSaving;
 use DB;
 
 class ReportsController extends Controller
@@ -71,20 +75,111 @@ class ReportsController extends Controller
     //                   ->where('mobile', '=', $data['customer_mobile'])
     //                   ->first();
 
-    $result = DB::table('cements')
-                ->join('customers', 'cements.customer_id', '=', 'customers.id')
-                ->where('customers.name', $data['customer_name'])
-                ->where('customers.mobile', $data['customer_mobile'])
-                ->whereBetween('cements.created_at', [$date_from, $date_to])
-                ->get();
+    // if($data['report'] == 'cement'){
+    //   $query = DB::table('cements');
+    // } else if($data['report'] == 'rod'){
+    //   $query = DB::table('rods');
+    // } else if($data['report'] == 'both'){
+    //   $query = DB::table('cements')
+    //            ->with('rods')
+    // }
+    //
+    // if($data['customer_name'] != ''){
+    //
+    // }
+    //
+    // $query->whereBetween('cements.created_at', [$date_from, $date_to]);
 
-    dd($result);
+    if($data['report'] == 'cement'){
+      $result = DB::table('cements');
 
-    $result = Cement::whereBetween('created_at', [$date_from, $date_to])->get()->toArray();
+      if($data['customer_name'] != '' || $data['customer_mobile'] != ''){
+        $result->join('customers', 'cements.customer_id', '=', 'customers.id');
+      }
+
+      if($data['customer_name'] != '' && $data['customer_mobile'] != ''){
+        $result->where('customers.name', $data['customer_name'])
+               ->where('customers.mobile', $data['customer_mobile']);
+      } else if($data['customer_name'] != ''){
+        $result->where('customers.name', $data['customer_name']);
+      } else if($data['customer_mobile'] != ''){
+        $result->where('customers.mobile', $data['customer_mobile']);
+      }
+
+      if($data['report_type'] == 'sell'){
+        $result->whereNull('cements.due_no');
+      } else if($data['report_type'] == 'buy'){
+        $result->whereNotNull('cements.due_no');
+      } else if($data['report_type'] == 'due_money'){
+        $result->where('cements.customer_id', '!=', 0);
+        $result->whereNull('cements.due_no');
+      }
+
+      $result->whereBetween('cements.created_at', [$date_from, $date_to]);
+
+      $cementBrandRecords = CementBrand::where('active', 1)->get();
+      $brands = $this->process_cement_brands($cementBrandRecords);
+
+      $cementRecords = $result->paginate(10);
+      return view('report.cement')->with(['records' => $cementRecords->appends(Input::except('page')), 'brands' => $brands]);
+    } else if($data['report'] == 'rod'){
+      $result = DB::table('rods');
+
+      if($data['customer_name'] != '' || $data['customer_mobile'] != ''){
+        $result->join('customers', 'rods.customer_id', '=', 'customers.id');
+      }
+
+      if($data['customer_name'] != '' && $data['customer_mobile'] != ''){
+        $result->where('customers.name', $data['customer_name'])
+               ->where('customers.mobile', $data['customer_mobile']);
+      } else if($data['customer_name'] != ''){
+        $result->where('customers.name', $data['customer_name']);
+      } else if($data['customer_mobile'] != ''){
+        $result->where('customers.mobile', $data['customer_mobile']);
+      }
+
+      if($data['report_type'] == 'sell'){
+        $result->whereNull('rods.due_no');
+      } else if($data['report_type'] == 'buy'){
+        $result->whereNotNull('rods.due_no');
+      } else if($data['report_type'] == 'due_money'){
+        $result->where('rods.customer_id', '!=', 0);
+        $result->whereNull('rods.due_no');
+      }
+
+      $result->whereBetween('rods.created_at', [$date_from, $date_to]);
+
+      $rodBrandRecords = RodBrand::where('active', 1)->get();
+      $brands = $this->process_rod_brands($rodBrandRecords);
+
+      $rodRecords = $result->paginate(10);
+      return view('report.rod')->with(['records' => $rodRecords->appends(Input::except('page')), 'brands' => $brands]);
+    } else if($data['report'] == 'bank_saving'){
+      $result = DB::table('bank_savings');
+
+      $result->whereBetween('bank_savings.created_at', [$date_from, $date_to]);
+
+      $bankSavings = $result->paginate(10);
+      return view('report.bank_saving')->with('records', $bankSavings->appends(Input::except('page')));
+    } else if($data['report'] == 'due_collection'){
+      $result = DB::table('due_collections');
+
+      if($data['customer_name'] != '' && $data['customer_mobile'] != ''){
+        $result->where('due_collections.customer_name', $data['customer_name'])
+               ->where('due_collections.customer_mobile', $data['customer_mobile']);
+      } else if($data['customer_name'] != ''){
+        $result->where('due_collections.customer_name', $data['customer_name']);
+      } else if($data['customer_mobile'] != ''){
+        $result->where('due_collections.customer_mobile', $data['customer_mobile']);
+      }
+
+      $result->whereBetween('due_collections.created_at', [$date_from, $date_to]);
+
+      $dueCollection = $result->paginate(10);
+      return view('report.due_collection')->with('records', $dueCollection->appends(Input::except('page')));
+    }
 
     // dd(DB::getQueryLog());
-
-    dd($result);
 
     // $rodBrand = new RodBrand([
     //     'name' => $request->get('company_name'),
@@ -93,5 +188,41 @@ class ReportsController extends Controller
     //
     // $rodBrand->save();
     // return redirect('/rod-brands')->with('success', 'Brand saved!');
+  }
+
+  /**
+  * Process rod brands to convert from object property to array property
+  *
+  * @return Array
+  */
+  private function process_rod_brands($brands){
+    if(empty($brands))
+      return [];
+
+    $brand_array = [];
+
+    foreach ($brands as $key => $brand) {
+      $brand_array[$brand->id] = $brand->name;
+    }
+
+    return $brand_array;
+  }
+
+  /**
+  * Process cement brands to convert from object property to array property
+  *
+  * @return Array
+  */
+  private function process_cement_brands($brands){
+    if(empty($brands))
+      return [];
+
+    $brand_array = [];
+
+    foreach ($brands as $key => $brand) {
+      $brand_array[$brand->id] = $brand->name;
+    }
+
+    return $brand_array;
   }
 }

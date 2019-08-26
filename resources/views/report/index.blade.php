@@ -4,19 +4,19 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <form method="POST" action="{{ url('report') }}" id="report">
-        @csrf
-
+      <form method="GET" action="{{ url('report/result') }}" id="report">
+        
         <div class="form-group">
           <label for="report">আপনি কিসের রিপোর্ট চান?</label>
-          <select name="report" class="form-control">
+          <select id="report-criteria" name="report" class="form-control">
             <option value="cement">সিমেন্ট</option>
             <option value="rod">রড</option>
-            <option value="both">সিমেন্ট এবং রড</option>
+            <option value="bank_saving">ব্যাংকে টাকা জমার হিসাব</option>
+            <option value="due_collection">ক্যাশ টাকা জমার হিসাব</option>
           </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group customer-information">
           <label for="customer_name">কাস্টমারের নাম</label>
           <input id="customer_name"
           type="text"
@@ -24,7 +24,7 @@
           class="form-control">
         </div>
 
-        <div class="form-group">
+        <div class="form-group customer-information">
           <label for="customer_mobile">কাস্টমারের মোবাইল নাম্বার</label>
           <input id="customer_mobile"
           type="text"
@@ -58,14 +58,12 @@
           @enderror
         </div>
 
-        <div class="form-group">
+        <div id="report-actual" class="form-group">
           <label for="report_type">আপনি কি ধরনের রিপোর্ট চান?</label>
           <select name="report_type" class="form-control">
             <option value="sell">বিক্রয় হিসাব</option>
             <option value="buy">ক্রয় হিসাব</option>
             <option value="due_money">বাকি টাকার হিসাব</option>
-            <option value="bank_saving">ব্যাংকে টাকা জমার হিসাব</option>
-            <option value="cash_saving">ক্যাশ টাকা জমার হিসাব</option>
           </select>
         </div>
 

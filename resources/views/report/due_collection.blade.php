@@ -7,7 +7,8 @@
     <table class="table table-striped">
       <thead>
           <tr>
-            <td>হিসাব নং</td>
+            <td>কাস্টমারের নাম</td>
+            <td>কাস্টমারের মোবাইল নাম্বার</td>
             <td>টাকা</td>
             <td>মন্তব্য</td>
             <td>তারিখ</td>
@@ -16,7 +17,8 @@
       <tbody>
           @foreach($records as $record)
           <tr>
-              <td>{{$record->bank_account_number}}</td>
+              <td>{{$record->customer_name}}</td>
+              <td>{{$record->customer_mobile}}</td>
               <td>{{$record->amount}}</td>
               <td>{{$record->comment}}</td>
               <td>{{Carbon\Carbon::parse($record->created_at)->format('d F Y, h:i A')}}</td>

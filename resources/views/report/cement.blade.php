@@ -7,18 +7,24 @@
     <table class="table table-striped">
       <thead>
           <tr>
-            <td>হিসাব নং</td>
-            <td>টাকা</td>
-            <td>মন্তব্য</td>
+            <td>মোট বস্তা</td>
+            <td>দর</td>
+            <td>জমা</td>
+            <td>কাস্টমারের নাম</td>
+            <td>ব্র্যান্ড</td>
+            <td>ডিও নং</td>
             <td>তারিখ</td>
           </tr>
       </thead>
       <tbody>
           @foreach($records as $record)
           <tr>
-              <td>{{$record->bank_account_number}}</td>
-              <td>{{$record->amount}}</td>
-              <td>{{$record->comment}}</td>
+              <td>{{$record->total_amount}}</td>
+              <td>{{$record->rate}}</td>
+              <td>{{$record->price}}</td>
+              <td>{{$record->customer_name}}</td>
+              <td>{{$brands[$record->brand]}}</td>
+              <td>{{$record->due_no}}</td>
               <td>{{Carbon\Carbon::parse($record->created_at)->format('d F Y, h:i A')}}</td>
           </tr>
           @endforeach

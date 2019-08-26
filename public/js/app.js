@@ -38128,6 +38128,22 @@ jQuery('document').ready(function ($) {
     endDate: 'today',
     autoclose: true
   });
+  $('#report #report-criteria').on('change', function () {
+    var value = this.value;
+    console.log('Value', value);
+
+    if (value == 'bank_saving' || value == 'due_collection') {
+      $('#report #report-actual').hide();
+    } else {
+      $('#report #report-actual').show();
+    }
+
+    if (value == 'bank_saving') {
+      $('#report .customer-information').hide();
+    } else {
+      $('#report .customer-information').show();
+    }
+  });
 });
 
 /***/ }),
