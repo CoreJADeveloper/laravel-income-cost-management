@@ -7,8 +7,7 @@
 
 @section('content')
 <div class="container" id="rod-create-record">
-    <h1>Create Record</h1>
-
+    
     <div class="row">
       <div class="col-sm-6">
         <form method="POST" action="{{ route('rod.store') }}">

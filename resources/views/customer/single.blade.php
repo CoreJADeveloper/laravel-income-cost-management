@@ -2,8 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Customer portion</h1>
-
+    
     <table class="table table-striped">
       <tbody>
         <tr>

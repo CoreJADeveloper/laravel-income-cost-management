@@ -38143,6 +38143,66 @@ jQuery('document').ready(function ($) {
     } else {
       $('#report .customer-information').show();
     }
+  }); // Rod brands
+
+  var toggle_rod_brand = function toggle_rod_brand(data) {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: 'POST',
+      data: data,
+      url: '/enable-disable-rod-brand',
+      success: function success(data) {}
+    });
+  };
+
+  $('#rod-brands .toggle-enable-disable').change(function () {
+    var ischecked = $(this).is(':checked');
+    var data_id = $(this).data('id');
+    var data = {
+      id: data_id
+    };
+
+    if (!ischecked) {
+      data['active'] = 0;
+    } else {
+      data['active'] = 1;
+    }
+
+    toggle_rod_brand(data);
+  }); // Cement brands
+
+  var toggle_cement_brand = function toggle_cement_brand(data) {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: 'POST',
+      data: data,
+      url: '/enable-disable-cement-brand',
+      success: function success(data) {}
+    });
+  };
+
+  $('#cement-brands .toggle-enable-disable').change(function () {
+    var ischecked = $(this).is(':checked');
+    var data_id = $(this).data('id');
+    var data = {
+      id: data_id
+    };
+
+    if (!ischecked) {
+      data['active'] = 0;
+    } else {
+      data['active'] = 1;
+    }
+
+    toggle_cement_brand(data);
   });
 });
 

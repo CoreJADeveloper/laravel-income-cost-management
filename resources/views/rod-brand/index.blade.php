@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Rod portion</h1>
-
+<div class="container" id="rod-brands">
+    
     @if(count($records) > 0)
     <table class="table table-striped">
       <thead>
@@ -17,7 +16,8 @@
           <tr>
               <td>{{$record->name}}</td>
               <td>
-                <input type="checkbox" name="brand_active" value="{{$record->active}}" @if($record->active === 1) checked @endif />
+                <input type="checkbox" data-id="{{$record->id}}" class="toggle-enable-disable" name="brand_active" value="{{$record->active}}"
+                @if($record->active === 1) checked @endif />
               </td>
           </tr>
           @endforeach

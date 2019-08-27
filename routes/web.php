@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('dashboard');
 });
 
 // Auth::routes();
@@ -59,6 +59,9 @@ Route::middleware(['auth'])->group(function () {
     $html = view('templates.customer', compact('user'))->render();
     return response()->json(['success'=> $html]);
   });
+
+  Route::post('/enable-disable-rod-brand', 'CommonController@toggle_rod_brand');
+  Route::post('/enable-disable-cement-brand', 'CommonController@toggle_cement_brand');
 });
 
 Route::middleware(['auth', 'auth.admin'])->group(function () {

@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/Chart.min.js') }}" type="text/javascript"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/Chart.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -50,26 +52,123 @@
                             @endif -->
                         @else
                         <li class="nav-item">
-                          <a class="btn btn-primary" data-toggle="modal" data-target="#reportModal">
-                              রিপোর্ট
-                          </a>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                          <li>
+                            <a class="nav-link" href="{{ url('dashboard') }}">
+                                প্রথম পৃষ্ঠা
                             </a>
+                          </li>
+                          <li>
+                            <a class="nav-link" href="{{ url('report') }}">
+                                রিপোর্ট
+                            </a>
+                          </li>
+                          @if(Auth::user()->hasAnyRole('admin'))
+                          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                  কর্মচারিদের বেতন <span class="caret"></span>
+                              </a>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url('salaries') }}">
+                                    আগের রেকর্ড
                                 </a>
+                                <a class="dropdown-item" href="{{ url('salaries/create') }}">
+                                    নতুন রেকর্ড
+                                </a>
+                              </div>
+                          </li>
+                          @endif
+                          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                  বকেয়া আদায় <span class="caret"></span>
+                              </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url('due-collections') }}">
+                                    আগের রেকর্ড
+                                </a>
+                                <a class="dropdown-item" href="{{ url('due-collections/create') }}">
+                                    নতুন রেকর্ড
+                                </a>
+                              </div>
+                          </li>
+                          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                  ব্যাংকে জমা <span class="caret"></span>
+                              </a>
+
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url('bank-savings') }}">
+                                    আগের রেকর্ড
+                                </a>
+                                <a class="dropdown-item" href="{{ url('bank-savings/create') }}">
+                                    নতুন রেকর্ড
+                                </a>
+                              </div>
+                          </li>
+                          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                  সিমেন্ট <span class="caret"></span>
+                              </a>
+
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url('cement') }}">
+                                    আগের রেকর্ড
+                                </a>
+                                <a class="dropdown-item" href="{{ url('cement/create') }}">
+                                    নতুন রেকর্ড
+                                </a>
+                                <a class="dropdown-item" href="{{ url('cement-brands') }}">
+                                    ব্র্যান্ড
+                                </a>
+                                <a class="dropdown-item" href="{{ url('cement-brands/create') }}">
+                                    নতুন ব্র্যান্ড
+                                </a>
+                              </div>
+                          </li>
+
+                          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                  রড <span class="caret"></span>
+                              </a>
+
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url('rod') }}">
+                                    আগের রেকর্ড
+                                </a>
+                                <a class="dropdown-item" href="{{ url('rod/create') }}">
+                                    নতুন রেকর্ড
+                                </a>
+                                <a class="dropdown-item" href="{{ url('rod-brands') }}">
+                                    ব্র্যান্ড
+                                </a>
+                                <a class="dropdown-item" href="{{ url('rod-brands/create') }}">
+                                    নতুন ব্র্যান্ড
+                                </a>
+                              </div>
+                          </li>
+
+                          <li class="nav-item dropdown">
+                              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                  {{ Auth::user()->name }} <span class="caret"></span>
+                              </a>
+
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                  <a class="dropdown-item" href="{{ route('logout') }}"
+                                     onclick="event.preventDefault();
+                                                   document.getElementById('logout-form').submit();">
+                                      {{ __('Logout') }}
+                                  </a>
+
+                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                      @csrf
+                                  </form>
+                              </div>
+                          </li>
+
 
                         @endguest
                     </ul>
